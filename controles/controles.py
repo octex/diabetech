@@ -28,6 +28,17 @@ def controles_parser(controles):
     return controles_list
 
 
+def fecha_parser(fecha):
+    fecha_content = fecha.split('-')
+    if len(fecha_content) != 3:
+        return make_response({"Error": "Date invalid format. Use AAAA-MM-DD"}, 406)
+    year = int(fecha_content[0])
+    month = int(fecha_content[1])
+    day = int(fecha_content[2])
+    new_date = date(year, month, day)
+    return new_date
+
+
 def get_controles(request):
     session = Session()
     controles = session.query(Control).all()
@@ -47,17 +58,18 @@ def create_control(request):
     if json_request is None:
         return make_response({"Error": "No JSON request"}, 400)
     try:
-        fecha_control = date(json_request["fecha"])
+        fecha_control = fecha_parser(json_request["fecha"])
         comida_control = json_request["comida"]
         unidades_control = json_request["unidades"]
         valor_control = json_request["valor"]
         new_control = Control(fecha=fecha_control, comida=comida_control,
                               unidades=unidades_control, valor=valor_control)
+        control_json = new_control.to_json()
         session = Session()
         session.add(new_control)
         session.commit()
         session.close()
-        return make_response({"Created": json.dumps(new_control.to_json())}, 201)
+        return make_response({"Created": control_json}, 201)
     except KeyError:
         return make_response({"Error": "Missing key in JSON request"}, 400)
     return {}
