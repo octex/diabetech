@@ -1,8 +1,8 @@
 import logging
-from flask import Flask, request, Request, jsonify
-from analisis import analisis
-from controles import controles
+from flask import Flask, request
+from controles.controles import controles_manager
 from insumos import insumos
+from analisis import analisis
 from turnos import turnos
 from constants import HTTPMethods
 
@@ -11,11 +11,11 @@ logging.basicConfig(level=logging.DEBUG)
 
 @app.route('/', methods=[HTTPMethods.GET])
 def home():
-    return jsonify({"test": 1})
-
-@app.route('/controles/')
-def controles():
     return {}
+
+@app.route('/controles/', methods=[HTTPMethods.GET, HTTPMethods.POST])
+def controles():
+    return controles_manager(request)
 
 @app.route('/insumos/')
 def insumos():
