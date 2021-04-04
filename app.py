@@ -15,7 +15,7 @@ def home():
     return {}
 
 
-@app.route('/controles/', methods=[HTTPMethods.GET, HTTPMethods.POST, HTTPMethods.PUT])
+@app.route('/controles/', methods=[HTTPMethods.GET, HTTPMethods.POST, HTTPMethods.PUT, HTTPMethods.DELETE])
 def controles():
     return controles_manager(request)
 
