@@ -24,6 +24,8 @@ def controles_manager(request):
         return create_control(request)
     elif r_method == HTTPMethods.PUT:
         return update_control(request)
+    elif r_method == HTTPMethods.DELETE:
+        return delete_control(request)
 
 
 def controles_parser(controles):
