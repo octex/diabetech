@@ -47,8 +47,9 @@ def fecha_parser(fecha):
     return new_date
 
 
-def query_params_parser(query_params):
-    possible_params = ["valor", "unidades", "fecha", "comida"]
+def query_params_parser(query_params, possible_params):
+    if len(query_params) == 0:
+        return {}
     new_query_params = {}
     for param in query_params:
         if param in possible_params:
@@ -58,7 +59,8 @@ def query_params_parser(query_params):
 
 def get_controles(request):
     query_params = request.args
-    actual_params = query_params_parser(query_params=query_params)
+    possible_params = ["valor", "unidades", "fecha", "comida"]
+    actual_params = query_params_parser(query_params=query_params, possible_params=possible_params)
     session = Session()
     if len(query_params) == 0 or len(actual_params) == 0:
         controles = session.query(Control).all()
