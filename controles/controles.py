@@ -47,7 +47,8 @@ def fecha_parser(fecha):
     return new_date
 
 
-def query_params_parser(query_params, possible_params):
+def query_params_parser(query_params):
+    possible_params = ["valor", "unidades", "fecha", "comida"]
     new_query_params = {}
     for param in query_params:
         if param in possible_params:
@@ -57,8 +58,7 @@ def query_params_parser(query_params, possible_params):
 
 def get_controles(request):
     query_params = request.args
-    possible_params = ["valor", "unidades", "fecha", "comida"]
-    actual_params = query_params_parser(query_params=query_params, possible_params=possible_params)
+    actual_params = query_params_parser(query_params=query_params)
     session = Session()
     if len(query_params) == 0 or len(actual_params) == 0:
         controles = session.query(Control).all()
@@ -66,8 +66,6 @@ def get_controles(request):
     else:
         controles = session.query(Control).filter_by(**actual_params).all()
         controles = controles_parser(controles)
-        # if len(actual_params) == len(possible_params):
-            # controles = session.query(Control).filter_by().all()
     session.close()
     return jsonify({"Controles": controles, "Registros": len(controles)})
 
