@@ -48,10 +48,19 @@ def fecha_parser(fecha):
 
 
 def get_controles(request):
+    query_params = request.args
     session = Session()
-    controles = session.query(Control).all()
+    if len(query_params) == 0:
+        controles = session.query(Control).all()
+        controles = controles_parser(controles)
+    else:
+        tmp_q_p = {
+            "fecha": "",
+            "comida": "",
+            "valor": "",
+            "unidades": ""
+        }
     session.close()
-    controles = controles_parser(controles)
     return jsonify({"Controles": controles, "Registros": len(controles)})
 
 
