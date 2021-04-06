@@ -2,7 +2,7 @@ import logging
 from flask import Flask, request
 from controles.controles import controles_manager
 from insumos import insumos
-from analisis import analisis
+from analisis.analisis import analisis_manager
 from turnos import turnos
 from constants import HTTPMethods
 
@@ -25,9 +25,9 @@ def insumos():
     return {}
 
 
-@app.route('/analisis/')
+@app.route('/analisis/', methods=[HTTPMethods.GET, HTTPMethods.POST, HTTPMethods.PUT, HTTPMethods.DELETE])
 def analisis():
-    return {}
+    return analisis_manager(request)
 
 
 @app.route('/turnos/')

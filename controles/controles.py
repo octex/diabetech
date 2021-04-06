@@ -1,11 +1,11 @@
 import json
-from datetime import date
 import logging
 from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import IntegrityError
 from .controles_models import Control
 from constants import Config, HTTPMethods
+from utils import registry_parser, query_params_parser, fecha_parser
 from flask import jsonify, make_response
 
 logging.basicConfig(level=logging.DEBUG)
@@ -28,46 +28,18 @@ def controles_manager(request):
         return delete_control(request)
 
 
-def controles_parser(controles):
-    controles_list = []
-    for control in controles:
-        control_json = control.to_json()
-        controles_list.append(control_json)
-    return controles_list
-
-
-def fecha_parser(fecha):
-    fecha_content = fecha.split('-')
-    if len(fecha_content) != 3:
-        return make_response({"Error": "Date invalid format. Use AAAA-MM-DD"}, 406)
-    year = int(fecha_content[0])
-    month = int(fecha_content[1])
-    day = int(fecha_content[2])
-    new_date = date(year, month, day)
-    return new_date
-
-
-def query_params_parser(query_params, possible_params):
-    if len(query_params) == 0:
-        return {}
-    new_query_params = {}
-    for param in query_params:
-        if param in possible_params:
-            new_query_params[param] = query_params[param]
-    return new_query_params
-
-
 def get_controles(request):
     query_params = request.args
-    possible_params = ["valor", "unidades", "fecha", "comida"]
-    actual_params = query_params_parser(query_params=query_params, possible_params=possible_params)
+    possible_filter_params = ["valor", "unidades", "fecha", "comida"]
+    filter_params = query_params_parser(query_params=query_params, possible_params=possible_filter_params)
     session = Session()
-    if len(query_params) == 0 or len(actual_params) == 0:
+    if len(query_params) == 0 or len(filter_params) == 0:
+        #TODO: Paginado
         controles = session.query(Control).all()
-        controles = controles_parser(controles)
+        controles = registry_parser(controles)
     else:
-        controles = session.query(Control).filter_by(**actual_params).all()
-        controles = controles_parser(controles)
+        controles = session.query(Control).filter_by(**filter_params).all()
+        controles = registry_parser(controles)
     session.close()
     return jsonify({"Controles": controles, "Registros": len(controles)})
 
