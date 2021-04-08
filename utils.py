@@ -24,8 +24,11 @@ def fecha_parser(fecha):
     fecha_content = fecha.split('-')
     if len(fecha_content) != 3:
         return make_response({"Error": "Date invalid format. Use AAAA-MM-DD"}, 406)
-    year = int(fecha_content[0])
-    month = int(fecha_content[1])
-    day = int(fecha_content[2])
-    new_date = date(year, month, day)
+    try:
+        year = int(fecha_content[0])
+        month = int(fecha_content[1])
+        day = int(fecha_content[2])
+        new_date = date(year, month, day)
+    except ValueError:
+        return make_response({"Error": "Date invalid format. Use AAAA-MM-DD"}, 406)
     return new_date
