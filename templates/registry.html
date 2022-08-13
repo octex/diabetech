@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="{{ url_for('static', filename='request.js') }}"></script>
+        <title>
+            DIABETECH
+        </title>
+    </head>
+    <form method="GET" action="/registries/">
+        <button>
+            Volver
+        </button>
+    </form>
+    {% set r_id = registry["id"] %}
+    <input id="deleteRegisry" type="button" value="Borrar registro" onclick="delete_registry('/registries/{{ r_id }}');"/>
+    <body>
+        <h1>
+            Registro:
+        </h1>
+        <table style="width:50%">
+            <tr>
+                <th> Id </th>
+                <th> Glucosa </th>
+                <th> Insulina </th>
+                <th> Comida </th>
+                <th> Momento </th>
+                <th> Fecha </th>
+                <th> Notas </th>
+            </tr>
+            <tr>
+                <th>{{ registry["id"] }}</th>
+                <th>{{ registry["glucose"] }}</th>
+                <th>{{ registry["insulin"] }}</th>
+                <th>{{ registry["food"] }}</th>
+                <th>{{ registry["moment"] }}</th>
+                <th>{{ registry["date"] }}</th>
+                <th>{{ registry["notes"] }}</th>
+            </tr>
+        </table>
+    </body>
+</html>

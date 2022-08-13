@@ -5,8 +5,10 @@ from insumos import insumos
 from analisis.analisis import analisis_manager
 from turnos import turnos
 from constants import HTTPMethods
+from models import DbManager
 
 app = Flask(__name__)
+db_manager = DbManager("sqlite://diabetech.db")
 logging.basicConfig(level=logging.DEBUG)
 
 
