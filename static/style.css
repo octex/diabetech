@@ -1,3 +1,36 @@
 body{
     background-color: #9bebff;
+    text-align: center;
+    font-family: monospace;
+}
+
+button {
+    background-color: #4c8faf;
+    border: none;
+    color: white;
+    padding: 40px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 72px;
+    border-radius: 67px;
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    background-color: #77bede;
+  }
+
+.git-button{
+    padding: 0px 0px;
+    width: 25%;
+}
+
+.git-logo{
+    max-width:10%;
+    height:auto;
+}
+
+.titles {
+    font-size: 84px;
 }

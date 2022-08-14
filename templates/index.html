@@ -8,10 +8,9 @@
         <script type="text/javascript" src="{{ url_for('static', filename='request.js') }}"></script>
     </head>
     <header>
-        <h1>
-            Dashboard
-        </h1>
-            <label for="glucose">Glucosa</label>
+        <h1 class="titles">Diabetech</h1>
+        <nav></nav>
+            <!-- <label for="glucose">Glucosa</label>
             <input type="number" name="glucose" id="glucoseForm">
             <label for="insulin">Insulina</label>
             <input type="number" name="insulin" id="insulinForm">
@@ -25,13 +24,23 @@
             <input type="text" name="moment" id="momentForm">
             <button onclick="create_registry('/registries/');" onended="">
                 Crear registro
-            </button>
-        <h2>
-            Registros de control:
-        </h2>
+            </button> -->
     </header>
     <body>
-        <ol>
+        <button class="button">Controles</button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <button class="button">Agregar control</button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <button class="git-button"><img src="{{ url_for('static', filename='github.png') }}" class="git-logo"
+            onclick="window.location.href='https://github.com/octex/diabetech';">
+        </button>
+        <!-- <ol>
             {% for list_value in registries %}
             <form method="GET" action={{ list_value["id"] }}>
             <button id="registry_item">
@@ -54,6 +63,6 @@
             </button><br>
             </form>
             {% endfor %}
-        </ol>
+        </ol> -->
     </body>
 </html>

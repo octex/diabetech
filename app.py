@@ -1,20 +1,20 @@
 import logging
-from flask import Flask, request
+from flask import Flask, request, render_template, url_for
 from controles.controles import controles_manager
 from insumos import insumos
 from analisis.analisis import analisis_manager
 from turnos import turnos
 from constants import HTTPMethods
-from models import DbManager
+# from models import DbManager
 
 app = Flask(__name__)
-db_manager = DbManager("sqlite://diabetech.db")
+# db_manager = DbManager("sqlite://diabetech.db")
 logging.basicConfig(level=logging.DEBUG)
 
 
 @app.route('/', methods=[HTTPMethods.GET])
 def home():
-    return {}
+    return render_template("index.html")
 
 
 @app.route('/controles/', methods=[HTTPMethods.GET, HTTPMethods.POST, HTTPMethods.PUT, HTTPMethods.DELETE])
