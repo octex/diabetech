@@ -6,4 +6,4 @@ class HTTPMethods:
     OPTIONS = "OPTIONS"
 
 class Config:
-    DB_PATH = "sqlite:///C:\\Users\\okila\\Desktop\\PROYECTOS\\diabetech\\diabetech.db"
+    DB_PATH = ""

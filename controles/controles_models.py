@@ -4,10 +4,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from constants import Config
 
 
-Base = declarative_base()
-engine = create_engine(Config.DB_PATH, echo=True)
+# Base = declarative_base()
+# engine = create_engine(Config.DB_PATH, echo=True)
 
-class Control(Base):
+class Control:
     __tablename__ = 'controles'
 
     fecha = Column(Date())
@@ -30,4 +30,4 @@ class Control(Base):
         return "<Control(fecha='%s', comida='%s', unidades='%s', valor='%s')>" % (
             self.fecha, self.comida, self.unidades, self.valor)
 
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)
