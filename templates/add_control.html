@@ -14,9 +14,24 @@
         </nav>
     </header>
     <body>
-        <input type="number">
-        <input type="number">
-        <input type="datetime-local">
-        <input type="text">
+        <label for="glucosa">Glucosa</label>
+        <input type="number" name="glucosa">
+        <br>
+        <br>
+        <label for="insulina">Insulina</label>
+        <input type="number" name="insulina">
+        <br>
+        <br>
+        <label for="fecha">Fecha y hora</label>
+        <input type="datetime-local" name="fecha">
+        <br>
+        <br>
+        <label for="observaciones">Observaciones</label>
+        <input type="text" name="observaciones">
+        <br>
+        <br>
+        <button onclick="create_registry('/registries/');" onended="">
+            Crear registro
+        </button>
     </body>
 </html>

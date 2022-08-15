@@ -7,12 +7,15 @@ from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
-class ControlesManager:
-    def __init__(self, db_manager):
-        self.db_manager = db_manager
+class ControlesWebManager:
+    def __init__(self):
+        pass
 
     def handle_request(self, request):
         r_method = request.method
+        print("****************************************")
+        print(request.url)
+        print("****************************************")
         if r_method == HTTPMethods.GET:
             return self.get_controles(request)
         elif r_method == HTTPMethods.POST:
@@ -27,10 +30,7 @@ class ControlesManager:
         pass
 
     def get_controles(self, request):
-        return render_template("add_control.html")
-
-    def generate_page():
-        pass
+        return render_template("controles.html")
 
 
 class DbManager:

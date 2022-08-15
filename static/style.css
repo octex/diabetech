@@ -34,3 +34,12 @@ button:hover {
 .titles {
     font-size: 84px;
 }
+
+label{
+    font-size: 40px;   
+}
+
+input{
+    padding: 10px;
+    background: #cefdff;
+}
