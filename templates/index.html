@@ -4,27 +4,13 @@
         <title>
             DIABETECH
         </title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <script type="text/javascript" src="{{ url_for('static', filename='request.js') }}"></script>
     </head>
     <header>
         <h1 class="titles">Diabetech</h1>
         <nav></nav>
-            <!-- <label for="glucose">Glucosa</label>
-            <input type="number" name="glucose" id="glucoseForm">
-            <label for="insulin">Insulina</label>
-            <input type="number" name="insulin" id="insulinForm">
-            <label for="date">Fecha</label>
-            <input type="date" name="date" id="dateForm">
-            <label for="food">Comida</label>
-            <input type="text" name="food" id="foodForm">
-            <label for="notes">Notas</label>
-            <input type="text" name="notes" id="notesForm">
-            <label for="moment">Momento</label>
-            <input type="text" name="moment" id="momentForm">
-            <button onclick="create_registry('/registries/');" onended="">
-                Crear registro
-            </button> -->
     </header>
     <body>
         <button class="button">Controles</button>
@@ -42,29 +28,5 @@
         <button class="git-button"><img src="{{ url_for('static', filename='github.png') }}" class="git-logo"
             onclick="window.location.href='https://github.com/octex/diabetech';">
         </button>
-        <!-- <ol>
-            {% for list_value in registries %}
-            <form method="GET" action={{ list_value["id"] }}>
-            <button id="registry_item">
-            ID:
-            {{
-                list_value["id"]
-            }}
-            - GLUCOSA:
-             {{
-                 list_value["glucose"]
-             }}
-             - MOMENTO:
-             {{
-                 list_value["moment"]
-             }}
-             - FECHA:
-             {{
-                 list_value["date"]
-             }}
-            </button><br>
-            </form>
-            {% endfor %}
-        </ol> -->
     </body>
 </html>
