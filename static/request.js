@@ -16,13 +16,16 @@ function basic_request_parse(method, path, data)
 
 function create_registry(path)
 {
-    var glucose = document.getElementById("glucoseForm").value;
-    var insulin = document.getElementById("insulinForm").value;
-    var date = document.getElementById("dateForm").value;
-    var notes = document.getElementById("notesForm").value;
-    var moment = document.getElementById("momentForm").value;
-    var food = document.getElementById("foodForm").value;
-    var request = {"glucose": glucose, "insulin": insulin, "date": date, "notes": notes, "moment": moment, "food": food}
+    var glucose = document.getElementById("glucosa").value;
+    var insulin = document.getElementById("insulina").value;
+    var date = document.getElementById("fecha").value;
+    var notes = document.getElementById("observaciones").value;
+    var request = {
+        "valor": glucose,
+        "insulina": insulin,
+        "fecha": date,
+        "observaciones": notes
+    }
     var json = JSON.stringify(request)
     var response = basic_request_parse('POST', path, json);
     document.write(response);

@@ -1,7 +1,7 @@
 import logging
 from flask import Flask, request, render_template, url_for, redirect
 from constants import HTTPMethods
-from models import DbManager, ControlesWebManager, create_tables
+from models import DbManager, ControlesManager, create_tables
 
 # App start
 app = Flask(__name__)
@@ -12,7 +12,7 @@ db_manager = DbManager("sqlite:///diabetech.db")
 create_tables(engine=db_manager.engine)
 
 # Managers
-controles_manager = ControlesWebManager()
+controles_manager = ControlesManager(db_manager)
 
 
 @app.route('/', methods=[HTTPMethods.GET])
@@ -27,9 +27,9 @@ def diabetech():
 
 @app.route('/diabetech/controles/', methods=[HTTPMethods.GET])
 def controles():
-    return render_template("controles.html")
+    return controles_manager.get_controles(request)
 
 
-@app.route('/diabetech/controles/agregar/', methods=[HTTPMethods.GET])
+@app.route('/diabetech/controles/agregar/', methods=[HTTPMethods.GET, HTTPMethods.POST])
 def agregar_controles():
-    return render_template("add_control.html")
+    return controles_manager.add_control(request)

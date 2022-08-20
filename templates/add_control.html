@@ -15,22 +15,22 @@
     </header>
     <body>
         <label for="glucosa">Glucosa</label>
-        <input type="number" name="glucosa">
+        <input type="number" id="glucosa">
         <br>
         <br>
         <label for="insulina">Insulina</label>
-        <input type="number" name="insulina">
+        <input type="number" id="insulina">
         <br>
         <br>
         <label for="fecha">Fecha y hora</label>
-        <input type="datetime-local" name="fecha">
+        <input type="datetime-local" id="fecha">
         <br>
         <br>
         <label for="observaciones">Observaciones</label>
-        <input type="text" name="observaciones">
+        <input type="text" id="observaciones">
         <br>
         <br>
-        <button onclick="create_registry('/registries/');" onended="">
+        <button onclick="create_registry('/diabetech/controles/agregar/');" onended="">
             Crear registro
         </button>
     </body>
