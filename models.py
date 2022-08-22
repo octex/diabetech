@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 
 from flask import render_template, jsonify
-from constants import HTTPMethods, HTTPCodes
+from constants import HTTPMethods, HTTPCodes, Config
 
 from sqlalchemy import DATETIME, Column, Integer, create_engine, String
 from sqlalchemy.ext.declarative import declarative_base
@@ -53,6 +53,7 @@ class DbManager:
     def get_session(self):
         return self.session
 
+
 class Control(Base):
     __tablename__ = 'controles'
     control_id = Column(Integer, primary_key=True)
@@ -74,7 +75,7 @@ class ControlApi:
         return date.strftime("%d-%m-%Y")
 
     def get_hour_from_model(self, date):
-        return date.strftime("%H:%m:%S")
+        return date.strftime("%H:%M:%S")
     
     def to_json(self):
         model = {

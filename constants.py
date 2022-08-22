@@ -13,3 +13,4 @@ class HTTPCodes:
 
 class Config:
     DB_PATH = ""
+    MAX_PAGINATION_SET = 10
