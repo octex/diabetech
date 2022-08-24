@@ -43,3 +43,8 @@ input{
     padding: 10px;
     background: #cefdff;
 }
+
+table{
+    margin-left: auto;
+    margin-right: auto;   
+}

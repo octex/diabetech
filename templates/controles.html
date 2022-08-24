@@ -4,6 +4,7 @@
         <title>
             DIABETECH - Controles
         </title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <script type="text/javascript" src="{{ url_for('static', filename='request.js') }}"></script>
     </head>
@@ -12,29 +13,33 @@
         <nav></nav>
     </header>
     <body>
-        <ol> <!-- TODO: Arreglar esto para que sea una tabla prolija y cumpla con lo definido -->
-            {% for list_value in registries %}
-            <form method="GET" action={{ list_value["id"] }}>
-            <button id="registry_item">
-            ID:
-            {{
-                list_value["id"]
-            }}
-            - GLUCOSA:
-             {{
-                 list_value["glucose"]
-             }}
-             - MOMENTO:
-             {{
-                 list_value["moment"]
-             }}
-             - FECHA:
-             {{
-                 list_value["date"]
-             }}
-            </button><br>
-            </form>
+        <table>
+            <tr>
+                <th>Valor</th>
+                <th>Insulina</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Observaciones</th>
+            </tr>
+            {% for control in controles %}
+            <tr>
+                <td>
+                    {{ control["valor"] }}
+                </td>
+                <td>
+                    {{ control["insulina"] }}
+                </td>
+                <td>
+                    {{ control["fecha"] }}
+                </td>
+                <td>
+                    {{ control["hora"] }}
+                </td>
+                <td>
+                    {{ control["observaciones"] }}
+                </td>
+            </tr>
             {% endfor %}
-        </ol>
+        </table>
     </body>
 </html>

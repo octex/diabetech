@@ -40,7 +40,13 @@ class ControlesManager:
         pass
 
     def get_controles(self, request):
-        return render_template("controles.html")
+        # controles = Control.query.paginate(page=1, per_page=10)
+        controles = self.db_session.query(Control).all()
+        controles_api = []
+        for control in controles:
+            control_api = ControlApi(control)
+            controles_api.append(control_api)
+        return render_template("controles.html", controles=controles_api)
 
 
 class DbManager:
