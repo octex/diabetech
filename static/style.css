@@ -35,16 +35,25 @@ button:hover {
     font-size: 84px;
 }
 
-label{
+label {
     font-size: 40px;   
 }
 
-input{
+input {
     padding: 10px;
     background: #cefdff;
 }
 
-table{
+table {
     margin-left: auto;
-    margin-right: auto;   
+    margin-right: auto;
+    width: 100%;
+}
+
+tr:nth-child(even) {
+    background-color: #b2fdfb;
+}
+
+tr:nth-child(odd) {
+    background-color: #c3fffd;
 }
