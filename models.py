@@ -1,19 +1,22 @@
 import json
 from datetime import datetime
 
+from flask import Flask, request, render_template, url_for, redirect
+from flask_sqlalchemy import SQLAlchemy
+
 from flask import render_template, jsonify
 from constants import HTTPMethods, HTTPCodes, Config
 
-from sqlalchemy import DATETIME, Column, Integer, create_engine, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+# App start
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///diabetech.db"
 
-Base = declarative_base()
+# Database config
+db = SQLAlchemy(app)
 
 class ControlesManager:
-    def __init__(self, db_manager):
-        self.db = db_manager
-        self.db_session = self.db.get_session()
+    def __init__(self):
+        pass
 
     def add_control(self, request):
         r_method = request.method
@@ -29,8 +32,8 @@ class ControlesManager:
             new_control.fecha = datetime.strptime(request["fecha"], "%Y-%m-%dT%M:%S")
             new_control.insulina = request["insulina"]
             new_control.observaciones = request["observaciones"]
-            self.db_session.add(new_control)
-            self.db_session.commit()
+            db.session.add(new_control)
+            db.session.commit()
         except KeyError as e:
             return DiabetechResponse(HTTPCodes.BAD_REQUEST, e).get_response()
         new_control_api = ControlApi(new_control)
@@ -40,8 +43,8 @@ class ControlesManager:
         pass
 
     def get_controles(self, request):
-        # controles = Control.query.paginate(page=1, per_page=10)
-        controles = self.db_session.query(Control).all()
+        page = request.args.get('page', 1, type=int)
+        controles = Control.query.paginate(page=page, per_page=Config.MAX_PAGINATION_SET).items
         controles_api = []
         for control in controles:
             control_api = ControlApi(control)
@@ -60,13 +63,13 @@ class DbManager:
         return self.session
 
 
-class Control(Base):
+class Control(db.Model):
     __tablename__ = 'controles'
-    control_id = Column(Integer, primary_key=True)
-    valor = Column(Integer)
-    fecha = Column(DATETIME)
-    insulina = Column(Integer)
-    observaciones = Column(String)
+    control_id = db.Column(db.Integer, primary_key=True)
+    valor = db.Column(db.Integer, nullable=False)
+    fecha = db.Column(db.DATETIME, nullable=False)
+    insulina = db.Column(db.Integer, nullable=False)
+    observaciones = db.Column(db.String, nullable=True)
 
 
 class ControlApi:
@@ -113,7 +116,3 @@ class DiabetechResponse:
         if for_flask:
             response = jsonify(response)
         return response
-
-
-def create_tables(engine):
-    Base.metadata.create_all(engine)

@@ -1,0 +1,1 @@
+# Aca van los managers necesarios para manejar la tabla de controles
