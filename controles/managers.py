@@ -21,12 +21,14 @@ class ControlesManager:
         new_control = Control()
         try:
             new_control.valor = request["valor"]
-            new_control.fecha = datetime.strptime(request["fecha"], "%Y-%m-%dT%M:%S")
+            new_control.fecha = datetime.strptime(request["fecha"], "%Y-%m-%dT%H:%M")
             new_control.insulina = request["insulina"]
             new_control.observaciones = request["observaciones"]
             self.db.add(new_control)
             self.db.commit()
         except KeyError as e:
+            return DiabetechResponse(HTTPCodes.NOT_ACCEPTABLE, e).get_response()
+        except ValueError as e:
             return DiabetechResponse(HTTPCodes.BAD_REQUEST, e).get_response()
         new_control_api = ControlApi(new_control)
         return DiabetechResponse(HTTPCodes.CREATED, new_control_api.to_json()).get_response()

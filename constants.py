@@ -1,3 +1,6 @@
+from http.client import NOT_ACCEPTABLE
+
+
 class HTTPMethods:
     POST = "POST"
     GET = "GET"
@@ -8,7 +11,8 @@ class HTTPMethods:
 class HTTPCodes:
     OK = 200
     CREATED = 201
-    BAD_REQUEST = 406
+    BAD_REQUEST = 400
+    NOT_ACCEPTABLE = 406
     INTERNAL_ERROR = 500
 
 class Config:

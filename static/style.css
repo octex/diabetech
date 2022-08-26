@@ -17,6 +17,11 @@ button {
     transition-duration: 0.4s;
 }
 
+.nav-btn{
+    font-size: 32px;
+    padding: 10px 32px;
+}
+
 button:hover {
     background-color: #77bede;
   }
