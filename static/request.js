@@ -44,7 +44,6 @@ function update_registry(path, data)
 
 function alert_result(code, message)
 {
-    // result = result.replace("&#34;", '"')
     if(code == '200' || code == '201')
     {
         alert("Succes!")
