@@ -6,6 +6,9 @@
         <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <script type="text/javascript" src="{{ url_for('static', filename='request.js') }}"></script>
+        {% if result %}
+            <script>alert_result('{{ result["code"] }}', '{{ result["message"] }}');</script>
+        {% endif %}
     </head>
     <header>
         <h1 class="titles">Diabetech</h1>

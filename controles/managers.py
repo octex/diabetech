@@ -13,7 +13,7 @@ class ControlesManager:
     def add_control(self, request):
         r_method = request.method
         if r_method == HTTPMethods.GET:
-            return render_template("add_control.html")
+            return render_template("add_control.html", result=None)
         elif r_method == HTTPMethods.POST:
             return self.create_db_model(request.json)
 
@@ -27,11 +27,14 @@ class ControlesManager:
             self.db.add(new_control)
             self.db.commit()
         except KeyError as e:
-            return DiabetechResponse(HTTPCodes.NOT_ACCEPTABLE, e).get_response()
+            response = DiabetechResponse(HTTPCodes.NOT_ACCEPTABLE, e)
+            return render_template("add_control.html", result=response.to_json())
         except ValueError as e:
-            return DiabetechResponse(HTTPCodes.BAD_REQUEST, e).get_response()
+            response = DiabetechResponse(HTTPCodes.BAD_REQUEST, e)
+            return render_template("add_control.html", result=response.to_json())
         new_control_api = ControlApi(new_control)
-        return DiabetechResponse(HTTPCodes.CREATED, new_control_api.to_json()).get_response()
+        response = DiabetechResponse(HTTPCodes.CREATED, new_control_api.to_json())
+        return render_template("add_control.html", result=response.to_json())
 
     def remove_control(self, request):
         pass

@@ -41,3 +41,16 @@ function update_registry(path, data)
 {
     return basic_request_parse('PUT', path, data);
 }
+
+function alert_result(code, message)
+{
+    // result = result.replace("&#34;", '"')
+    if(code == '200' || code == '201')
+    {
+        alert("Succes!")
+    }
+    else
+    {
+        alert("An error has been occured:\n" + message)
+    }
+}
