@@ -41,5 +41,42 @@
             </tr>
             {% endfor %}
         </table>
+        <!-- Source of pagination: https://betterprogramming.pub/simple-flask-pagination-example-4190b12c2e2e
+        Thanks :) -->
+        <!-- Pagination Links-->
+        <div class="text-right">
+            <a href="{{ url_for('controles', page=controles_paged.prev_num) }}"
+            class="btn btn-outline-dark 
+            {% if controles_paged.page == 1 %}disabled{% endif %}">
+                &laquo;
+            </a>
+            <!-- Loop through the number of pages to display a link for each-->
+            {% for page_num in controles_paged.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            {% if page_num %}
+            <!-- Check for the active page and set the link to "Active"-->
+                {% if controles_paged.page == page_num %}
+                <a href="{{ url_for('controles', page=page_num) }}"
+                class="btn btn-dark">
+                    {{ page_num }}
+                </a>    
+                {% else %}
+                <a href="{{ url_for('controles', page=page_num) }}"
+                class="btn btn-outline-dark">
+                    {{ page_num }}
+                </a>
+                {% endif %}
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %}
+        <a href="{{ url_for('controles', page=controles_paged.next_num) }}"
+        class="btn btn-outline-dark 
+        {% if controles_paged.page == controles_paged.pages %}disabled{% endif %}">
+            &raquo;
+        </a>
+    </div>
+    <p class="text-right mt-3">
+    Showing page {{ controles_paged.page }} of {{ controles_paged.pages }}
+    </p>
     </body>
 </html>

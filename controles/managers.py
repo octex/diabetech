@@ -36,9 +36,9 @@ class ControlesManager:
 
     def get_controles(self, request):
         page = request.args.get('page', 1, type=int)
-        controles = Control.query.paginate(page=page, per_page=Config.MAX_PAGINATION_SET).items
+        controles = Control.query.paginate(page=page, per_page=Config.MAX_PAGINATION_SET)
         controles_api = []
-        for control in controles:
+        for control in controles.items:
             control_api = ControlApi(control)
             controles_api.append(control_api)
-        return render_template("controles.html", controles=controles_api)
+        return render_template("controles.html", controles=controles_api, controles_paged=controles)
