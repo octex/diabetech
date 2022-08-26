@@ -1,19 +1,18 @@
 import logging
-from flask import Flask, request, render_template, url_for, redirect
-from flask_sqlalchemy import SQLAlchemy
+from flask import request, render_template, url_for, redirect
 from constants import HTTPMethods
-from models import ControlesManager
+from controles.managers import ControlesManager
+from models import db_access, app_f
 
 # App start
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///diabetech.db"
+app = app_f
 logging.basicConfig(level=logging.DEBUG)
 
 # Database config
-db = SQLAlchemy(app)
+db = db_access
 
 # Managers
-controles_manager = ControlesManager()
+controles_manager = ControlesManager(db.session)
 
 
 @app.route('/', methods=[HTTPMethods.GET])
