@@ -25,7 +25,7 @@ def diabetech():
     return render_template("index.html")
 
 
-@app.route('/diabetech/controles/', methods=[HTTPMethods.GET])
+@app.route('/diabetech/controles/', methods=[HTTPMethods.GET, HTTPMethods.DELETE])
 def controles():
     return controles_manager.get_controles(request)
 

@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 
 from flask import render_template
@@ -15,9 +16,9 @@ class ControlesManager:
         if r_method == HTTPMethods.GET:
             return render_template("add_control.html", result=None)
         elif r_method == HTTPMethods.POST:
-            return self.create_db_model(request.json)
+            return self.add_control_registry(request.json)
 
-    def create_db_model(self, request):
+    def add_control_registry(self, request):
         new_control = Control()
         try:
             new_control.valor = request["valor"]
@@ -37,9 +38,22 @@ class ControlesManager:
         return render_template("add_control.html", result=response.to_json())
 
     def remove_control(self, request):
-        pass
+        control_id = request.args.get('control_id', None, type=int)
+        if not control_id:
+            response = DiabetechResponse(HTTPCodes.NOT_ACCEPTABLE, "Missing param 'coelsa_id'")
+            return render_template("controles.html", result=response.to_json())
+        control = self.db.query(Control).filter_by(control_id=control_id).first()
+        if not control:
+            response = DiabetechResponse(HTTPCodes.NOT_FOUND, f"Control with id: {control_id} not found")
+            return render_template("controles.html", result=response.to_json())
+        self.db.delete(control)
+        self.db.commit()
+        response = DiabetechResponse(HTTPCodes.OK, "Control deleted!")
+        return render_template("controles.html", result=response.to_json())
 
     def get_controles(self, request):
+        if request.method == HTTPMethods.DELETE:
+            return self.remove_control(request)
         page = request.args.get('page', 1, type=int)
         controles = Control.query.paginate(page=page, per_page=Config.MAX_PAGINATION_SET)
         controles_api = []
@@ -47,3 +61,6 @@ class ControlesManager:
             control_api = ControlApi(control)
             controles_api.append(control_api)
         return render_template("controles.html", controles=controles_api, controles_paged=controles)
+
+    def generate_paged_controls(self, page):
+        pass

@@ -62,3 +62,16 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
     background-color: #c3fffd;
 }
+
+.delete_button{
+    background-color: #4c8faf;
+    border: none;
+    color: white;
+    padding: 0px;
+    text-align: left;
+    text-decoration: none;
+    display: list-item;
+    font-size: 12px;
+    border-radius: 67px;
+    transition-duration: 0.4s;   
+}

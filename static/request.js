@@ -46,10 +46,10 @@ function alert_result(code, message)
 {
     if(code == '200' || code == '201')
     {
-        alert("Succes!")
+        alert("Operacion realizada con exito!")
     }
     else
     {
-        alert("An error has been occured:\n" + message)
+        alert("Ocurrio un error:\n" + message)
     }
 }

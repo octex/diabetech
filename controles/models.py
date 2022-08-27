@@ -12,6 +12,7 @@ class Control(db.Model):
 
 class ControlApi:
     def __init__(self, control_model):
+        self.control_id = control_model.control_id
         self.valor = control_model.valor
         self.fecha = self.get_date_from_model(control_model.fecha)
         self.hora = self.get_hour_from_model(control_model.fecha)
@@ -26,6 +27,7 @@ class ControlApi:
     
     def to_json(self):
         model = {
+            "control_id": self.control_id,
             "valor": self.valor,
             "fecha": self.fecha,
             "hora": self.hora,

@@ -7,6 +7,9 @@
         <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <script type="text/javascript" src="{{ url_for('static', filename='request.js') }}"></script>
+        {% if result %}
+            <script>alert_result('{{ result["code"] }}', '{{ result["message"] }}');</script>
+        {% endif %}
     </head>
     <header>
         <h1 class="titles">Diabetech</h1>
@@ -26,6 +29,9 @@
             </tr>
             {% for control in controles %}
             <tr>
+                <button class='delete_button' onclick="delete_registry('/diabetech/controles/?control_id={{ control["control_id"] }}');">
+                    Borrar
+                </button>
                 <td>
                     {{ control["valor"] }}
                 </td>
