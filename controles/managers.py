@@ -41,26 +41,27 @@ class ControlesManager:
         control_id = request.args.get('control_id', None, type=int)
         if not control_id:
             response = DiabetechResponse(HTTPCodes.NOT_ACCEPTABLE, "Missing param 'coelsa_id'")
-            return render_template("controles.html", result=response.to_json())
+            return self.generate_paged_controls(1, response.to_json())
         control = self.db.query(Control).filter_by(control_id=control_id).first()
         if not control:
             response = DiabetechResponse(HTTPCodes.NOT_FOUND, f"Control with id: {control_id} not found")
-            return render_template("controles.html", result=response.to_json())
+            return self.generate_paged_controls(1, response.to_json())
         self.db.delete(control)
         self.db.commit()
         response = DiabetechResponse(HTTPCodes.OK, "Control deleted!")
-        return render_template("controles.html", result=response.to_json())
+        return self.generate_paged_controls(1, response.to_json())
 
     def get_controles(self, request):
         if request.method == HTTPMethods.DELETE:
             return self.remove_control(request)
-        page = request.args.get('page', 1, type=int)
+        elif request.method == HTTPMethods.GET:
+            page = request.args.get('page', 1, type=int)
+            return self.generate_paged_controls(page, None)
+
+    def generate_paged_controls(self, page, result_t):
         controles = Control.query.paginate(page=page, per_page=Config.MAX_PAGINATION_SET)
         controles_api = []
         for control in controles.items:
             control_api = ControlApi(control)
             controles_api.append(control_api)
-        return render_template("controles.html", controles=controles_api, controles_paged=controles)
-
-    def generate_paged_controls(self, page):
-        pass
+        return render_template("controles.html", controles=controles_api, controles_paged=controles, result=result_t)
