@@ -1,40 +1,35 @@
 import logging
-from flask import Flask, request
-from controles.controles import controles_manager
-from insumos import insumos
-from analisis.analisis import analisis_manager
-from turnos import turnos
+from flask import request, render_template, url_for, redirect
 from constants import HTTPMethods
+from controles.managers import ControlesManager
+from models import db_access, app_f
 
-app = Flask(__name__)
+# App start
+app = app_f
 logging.basicConfig(level=logging.DEBUG)
+
+# Database config
+db = db_access
+
+# Managers
+controles_manager = ControlesManager(db.session)
 
 
 @app.route('/', methods=[HTTPMethods.GET])
 def home():
-    return {}
+    return redirect("/diabetech/", code=302)
 
 
-@app.route('/controles/', methods=[HTTPMethods.GET, HTTPMethods.POST, HTTPMethods.PUT, HTTPMethods.DELETE])
+@app.route('/diabetech/', methods=[HTTPMethods.GET])
+def diabetech():
+    return render_template("index.html")
+
+
+@app.route('/diabetech/controles/', methods=[HTTPMethods.GET, HTTPMethods.DELETE])
 def controles():
-    return controles_manager(request)
+    return controles_manager.get_controles(request)
 
 
-@app.route('/insumos/')
-def insumos():
-    return {}
-
-
-@app.route('/analisis/', methods=[HTTPMethods.GET, HTTPMethods.POST, HTTPMethods.PUT, HTTPMethods.DELETE])
-def analisis():
-    return analisis_manager(request)
-
-
-@app.route('/turnos/')
-def turnos():
-    return {}
-
-
-@app.route('/informes/')
-def informes():
-    return {}
+@app.route('/diabetech/controles/agregar/', methods=[HTTPMethods.GET, HTTPMethods.POST])
+def agregar_controles():
+    return controles_manager.add_control(request)

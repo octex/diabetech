@@ -1,0 +1,75 @@
+body{
+    background-color: #9bebff;
+    text-align: center;
+    font-family: monospace;
+}
+
+button {
+    background-color: #4c8faf;
+    border: none;
+    color: white;
+    padding: 40px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 72px;
+    border-radius: 67px;
+    transition-duration: 0.4s;
+}
+
+.nav-btn{
+    font-size: 32px;
+    padding: 10px 32px;
+}
+
+button:hover {
+    background-color: #77bede;
+  }
+
+.git-button{
+    padding: 0px 0px;
+    width: 25%;
+}
+
+.git-logo{
+    max-width:10%;
+    height:auto;
+}
+
+.titles {
+    font-size: 84px;
+}
+
+label {
+    font-size: 40px;   
+}
+
+input {
+    padding: 10px;
+    background: #cefdff;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+tr:nth-child(even) {
+    background-color: #b2fdfb;
+}
+
+tr:nth-child(odd) {
+    background-color: #c3fffd;
+}
+
+.delete_button{
+    background-color: #4c8faf;
+    border: none;
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 15px;
+    border-radius: 10px;
+    transition-duration: 0.4s;   
+}

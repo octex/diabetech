@@ -1,0 +1,10 @@
+[Unit]
+Description=Diabetech server system service
+After=network-online.target
+
+[Service]
+WorkingDirectory=/home/pi/Desktop/projects/diabetech/
+ExecStart=bash /home/pi/Desktop/projects/diabetech/run.sh
+
+[Install]
+WantedBy=multi-user.target

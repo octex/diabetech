@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            DIABETECH - agregar control
+        </title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='request.js') }}"></script>
+        {% if result %}
+            <script>alert_result('{{ result["code"] }}', '{{ result["message"] }}');</script>
+        {% endif %}
+    </head>
+    <header>
+        <h1 class="titles">Diabetech</h1>
+        <h2 class="titles">Agregar registro</h2>
+        <nav>
+            <button class='nav-btn' onclick="window.location.href='/';">Inicio</button>
+        </nav>
+    </header>
+    <body>
+        <label for="glucosa">Glucosa</label>
+        <input type="number" id="glucosa">
+        <br>
+        <br>
+        <label for="insulina">Insulina</label>
+        <input type="number" id="insulina">
+        <br>
+        <br>
+        <label for="fecha">Fecha y hora</label>
+        <input type="datetime-local" id="fecha">
+        <br>
+        <br>
+        <label for="observaciones">Observaciones</label>
+        <input type="text" id="observaciones">
+        <br>
+        <br>
+        <button onclick="create_registry('/diabetech/controles/agregar/');" onended="">
+            Crear registro
+        </button>
+    </body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            DIABETECH - Controles
+        </title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='request.js') }}"></script>
+        {% if result %}
+            <script>alert_result('{{ result["code"] }}', '{{ result["message"] }}');</script>
+        {% endif %}
+    </head>
+    <header>
+        <h1 class="titles">Diabetech</h1>
+        <nav>
+            <button class='nav-btn' onclick="window.location.href='/';">Inicio</button>
+        </nav>
+    </header>
+    <br>
+    <body>
+        <table>
+            <tr>
+                <th>Valor</th>
+                <th>Insulina</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Observaciones</th>
+                <th>Opciones</th>
+            </tr>
+            {% for control in controles %}
+            <tr>
+                <td>
+                    {{ control["valor"] }}
+                </td>
+                <td>
+                    {{ control["insulina"] }}
+                </td>
+                <td>
+                    {{ control["fecha"] }}
+                </td>
+                <td>
+                    {{ control["hora"] }}
+                </td>
+                <td>
+                    {{ control["observaciones"] }}
+                </td>
+                <td>
+                    <button class='delete_button' onclick="delete_registry('/diabetech/controles/?control_id={{ control["control_id"] }}');"  onended="">
+                        Borrar
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <!-- Source of pagination: https://betterprogramming.pub/simple-flask-pagination-example-4190b12c2e2e
+        Thanks :) -->
+        <!-- Pagination Links-->
+        <div class="text-right">
+            <a href="{{ url_for('controles', page=controles_paged.prev_num) }}"
+            class="btn btn-outline-dark 
+            {% if controles_paged.page == 1 %}disabled{% endif %}">
+                &laquo;
+            </a>
+            <!-- Loop through the number of pages to display a link for each-->
+            {% for page_num in controles_paged.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            {% if page_num %}
+            <!-- Check for the active page and set the link to "Active"-->
+                {% if controles_paged.page == page_num %}
+                <a href="{{ url_for('controles', page=page_num) }}"
+                class="btn btn-dark">
+                    {{ page_num }}
+                </a>    
+                {% else %}
+                <a href="{{ url_for('controles', page=page_num) }}"
+                class="btn btn-outline-dark">
+                    {{ page_num }}
+                </a>
+                {% endif %}
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %}
+        <a href="{{ url_for('controles', page=controles_paged.next_num) }}"
+        class="btn btn-outline-dark 
+        {% if controles_paged.page == controles_paged.pages %}disabled{% endif %}">
+            &raquo;
+        </a>
+    </div>
+    <p class="text-right mt-3">
+    Showing page {{ controles_paged.page }} of {{ controles_paged.pages }}
+    </p>
+    </body>
+</html>

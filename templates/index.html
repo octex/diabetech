@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            DIABETECH
+        </title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='request.js') }}"></script>
+    </head>
+    <header>
+        <h1 class="titles">Diabetech</h1>
+        <nav></nav>
+    </header>
+    <body>
+        <button class="button" onclick="window.location.href='controles/';">
+            Controles
+        </button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <button class="button" onclick="window.location.href='controles/agregar/';">
+            Agregar control
+        </button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <button class="git-button"><img src="{{ url_for('static', filename='github.png') }}" class="git-logo"
+            onclick="window.location.href='https://github.com/octex/diabetech';">
+        </button>
+    </body>
+</html>
