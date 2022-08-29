@@ -26,12 +26,10 @@
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Observaciones</th>
+                <th>Opciones</th>
             </tr>
             {% for control in controles %}
             <tr>
-                <button class='delete_button' onclick="delete_registry('/diabetech/controles/?control_id={{ control["control_id"] }}');"  onended="">
-                    Borrar
-                </button>
                 <td>
                     {{ control["valor"] }}
                 </td>
@@ -46,6 +44,11 @@
                 </td>
                 <td>
                     {{ control["observaciones"] }}
+                </td>
+                <td>
+                    <button class='delete_button' onclick="delete_registry('/diabetech/controles/?control_id={{ control["control_id"] }}');"  onended="">
+                        Borrar
+                    </button>
                 </td>
             </tr>
             {% endfor %}

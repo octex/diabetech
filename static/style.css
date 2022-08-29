@@ -67,11 +67,9 @@ tr:nth-child(odd) {
     background-color: #4c8faf;
     border: none;
     color: white;
-    padding: 0px;
-    text-align: left;
+    padding: 5px;
     text-decoration: none;
-    display: list-item;
-    font-size: 12px;
-    border-radius: 67px;
+    font-size: 15px;
+    border-radius: 10px;
     transition-duration: 0.4s;   
 }
