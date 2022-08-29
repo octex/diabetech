@@ -29,7 +29,7 @@
             </tr>
             {% for control in controles %}
             <tr>
-                <button class='delete_button' onclick="delete_registry('/diabetech/controles/?control_id={{ control["control_id"] }}');">
+                <button class='delete_button' onclick="delete_registry('/diabetech/controles/?control_id={{ control["control_id"] }}');"  onended="">
                     Borrar
                 </button>
                 <td>

@@ -28,13 +28,17 @@ function create_registry(path)
     }
     var json = JSON.stringify(request)
     var response = basic_request_parse('POST', path, json);
+    document.open()
     document.write(response);
     return response
 }
 
 function delete_registry(path)
 {
-    return basic_request_parse('DELETE', path, null);
+    var response = basic_request_parse('DELETE', path, null);
+    document.open()
+    document.write(response);
+    return response
 }
 
 function update_registry(path, data)
