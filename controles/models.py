@@ -1,5 +1,3 @@
-from operator import mod
-from models import CsvReport
 from models import db_access as db
 
 
