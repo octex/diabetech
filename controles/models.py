@@ -1,3 +1,5 @@
+from operator import mod
+from models import CsvReport
 from models import db_access as db
 
 
@@ -35,5 +37,16 @@ class ControlApi:
             "observaciones": self.observaciones
         }
         return model
+    
+    def to_list(self):
+        model = [
+            self.valor,
+            self.fecha,
+            self.hora,
+            self.insulina,
+            self.observaciones
+        ]
+        return model
+
 
 db.create_all()

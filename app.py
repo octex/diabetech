@@ -30,6 +30,11 @@ def controles():
     return controles_manager.get_controles(request)
 
 
+@app.route('/diabetech/controles/reporte', methods=[HTTPMethods.GET])
+def obtener_reporte_controles():
+    return controles_manager.download_report(request)
+
+
 @app.route('/diabetech/controles/agregar/', methods=[HTTPMethods.GET, HTTPMethods.POST])
 def agregar_controles():
     return controles_manager.add_control(request)

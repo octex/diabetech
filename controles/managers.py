@@ -1,11 +1,11 @@
 import logging
 from datetime import datetime
 
-from flask import render_template
+from flask import render_template, send_file
 from constants import HTTPMethods, HTTPCodes, Config
 
 from controles.models import Control, ControlApi
-from models import DiabetechResponse
+from models import CsvReport, DiabetechResponse
 
 class ControlesManager:
     def __init__(self, session):
@@ -65,3 +65,18 @@ class ControlesManager:
             control_api = ControlApi(control)
             controles_api.append(control_api)
         return render_template("controles.html", controles=controles_api, controles_paged=controles, result=result_t)
+
+    def download_report(self, request):
+        controles_raw = self.db.query(Control).all()
+        report_data = []
+        report_headers = [
+            "Valor", "Insulina",
+            "Fecha", "Hora",
+            "Observaciones"
+        ]
+        for control in controles_raw:
+            report_data.append(ControlApi(control).to_list())
+        report = CsvReport(headers=report_headers, data=report_data)
+        report.write_headers()
+        report.write_data()
+        return send_file(report.get_file())

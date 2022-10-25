@@ -1,4 +1,7 @@
+import os
+import csv
 import json
+from datetime import datetime
 from flask import jsonify, Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -27,3 +30,25 @@ class DiabetechResponse:
         if for_flask:
             response = jsonify(response)
         return response
+
+class CsvReport:
+    def __init__(self, headers, data):
+        self.default_dir = './diabetech_' + datetime.today().strftime("%d%m%Y") + ".csv"
+        self.file = open(self.default_dir, 'w')
+        self.writer = csv.writer(self.file)
+        self.headers = headers
+        self.data = data
+    
+    def write_headers(self):
+        self.writer.writerow(self.headers)
+    
+    def write_data(self):
+        self.writer.writerows(self.data)
+
+    def get_file(self):
+        self.file.close()
+        return self.default_dir
+
+    def __del__(self):
+        if os.path.exists(self.default_dir):
+            os.remove(self.default_dir)
