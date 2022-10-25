@@ -32,12 +32,15 @@ class DiabetechResponse:
         return response
 
 class CsvReport:
-    def __init__(self, headers, data):
-        self.default_dir = './diabetech_' + datetime.today().strftime("%d%m%Y") + ".csv"
+    def __init__(self, headers, data, filename="diabetech"):
+        self.filename = filename
+        self.default_dir = f"./{self.filename}_{datetime.today().strftime('%d%m%Y')}.csv"
         self.file = open(self.default_dir, 'w')
         self.writer = csv.writer(self.file)
         self.headers = headers
         self.data = data
+        # TODO: El reporte generado debe guardarse en un server FTP
+        # y posteriormente eliminado para no almacenarlo localmente
     
     def write_headers(self):
         self.writer.writerow(self.headers)
@@ -48,6 +51,7 @@ class CsvReport:
     def get_file(self):
         self.file.close()
         return self.default_dir
+
 
     def __del__(self):
         if os.path.exists(self.default_dir):

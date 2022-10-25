@@ -76,7 +76,9 @@ class ControlesManager:
         ]
         for control in controles_raw:
             report_data.append(ControlApi(control).to_list())
-        report = CsvReport(headers=report_headers, data=report_data)
+        report = CsvReport(headers=report_headers, data=report_data,
+                            filename="controles")
         report.write_headers()
         report.write_data()
-        return send_file(report.get_file())
+        return send_file(report.get_file(), as_attachment=True,
+                        attachment_filename=report.default_dir)

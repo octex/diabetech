@@ -41,9 +41,9 @@ class ControlApi:
     def to_list(self):
         model = [
             self.valor,
+            self.insulina,
             self.fecha,
             self.hora,
-            self.insulina,
             self.observaciones
         ]
         return model
