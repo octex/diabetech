@@ -52,7 +52,8 @@ class CsvReport:
         self.file.close()
         return self.default_dir
 
-
     def __del__(self):
+        # TODO: BUG - No elimina el archivo cuando se deja de utilizar
+        #  el objeto porque el archivo aun esta en uso
         if os.path.exists(self.default_dir):
             os.remove(self.default_dir)
