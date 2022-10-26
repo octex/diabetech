@@ -35,5 +35,16 @@ class ControlApi:
             "observaciones": self.observaciones
         }
         return model
+    
+    def to_list(self):
+        model = [
+            self.valor,
+            self.insulina,
+            self.fecha,
+            self.hora,
+            self.observaciones
+        ]
+        return model
+
 
 db.create_all()

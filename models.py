@@ -1,4 +1,7 @@
+import os
+import csv
 import json
+from datetime import datetime
 from flask import jsonify, Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -27,3 +30,30 @@ class DiabetechResponse:
         if for_flask:
             response = jsonify(response)
         return response
+
+class CsvReport:
+    def __init__(self, headers, data, filename="diabetech"):
+        self.filename = filename
+        self.default_dir = f"./{self.filename}_{datetime.today().strftime('%d%m%Y')}.csv"
+        self.file = open(self.default_dir, 'w')
+        self.writer = csv.writer(self.file)
+        self.headers = headers
+        self.data = data
+        # TODO: El reporte generado debe guardarse en un server FTP
+        # y posteriormente eliminado para no almacenarlo localmente
+    
+    def write_headers(self):
+        self.writer.writerow(self.headers)
+    
+    def write_data(self):
+        self.writer.writerows(self.data)
+
+    def get_file(self):
+        self.file.close()
+        return self.default_dir
+
+    def __del__(self):
+        # TODO: BUG - No elimina el archivo cuando se deja de utilizar
+        #  el objeto porque el archivo aun esta en uso
+        if os.path.exists(self.default_dir):
+            os.remove(self.default_dir)
