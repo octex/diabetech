@@ -80,5 +80,4 @@ class ControlesManager:
                             filename="controles")
         report.write_headers()
         report.write_data()
-        return send_file(report.get_file(), as_attachment=True,
-                        attachment_filename=report.default_dir)
+        return send_file(report.get_file(), as_attachment=True)
